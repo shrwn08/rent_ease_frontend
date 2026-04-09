@@ -4,11 +4,23 @@ import "./index.css";
 import App from "./App.jsx";
 import store from "./store/index.js";
 import { Provider } from "react-redux";
+import { Toaster } from "react-hot-toast";
+import { BrowserRouter } from "react-router-dom";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <Provider store={store}>
-      <App />
+      <BrowserRouter>
+        <App />
+        <Toaster
+          position="top-right"
+          toastOptions={{
+            duration: 3000,
+            style: { fontFamily: "DM Sans, sans-serif", fontSize: "14px" },
+            success: { iconTheme: { primary: "#ea580c", secondary: "#fff" } },
+          }}
+        />
+      </BrowserRouter>
     </Provider>
   </StrictMode>,
 );
