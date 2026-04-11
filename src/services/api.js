@@ -34,3 +34,7 @@ export const login = (data) => API.post("/auth/login", data);
 //Products
 export const getProducts = (params) => API.get("/products", { params });
 export const getProduct = (id) => API.get(`/products/${id}`);
+
+//Cart
+export const getCart = () => API.get("/cart");
+export const addToCart = (data) => API.post("/cart", data);

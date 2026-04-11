@@ -16,6 +16,20 @@ export const fetchProducts = createAsyncThunk(
   },
 );
 
+export const fetchProduct = createAsyncThunk(
+  "products/fetchOne",
+  async (id, { rejectWithValue }) => {
+    try {
+      const res = await getProduct(id);
+      return res.data.product;
+    } catch (err) {
+      return rejectWithValue(
+        err.response?.data?.message || "Failed to fetch product",
+      );
+    }
+  },
+);
+
 const productSlice = createSlice({
   name: "products",
   initialState: {

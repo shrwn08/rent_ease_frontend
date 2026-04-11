@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import { logout } from "../../store/slices/authSlice";
+import { clearCartState } from "../../store/slices/cartSlice";
+import { FiChevronDown, FiMenu, FiShoppingBag, FiUser, FiX } from "react-icons/fi";
 
 function Navbar() {
   const { user } = useSelector((s) => s.auth);
+  const { cart } = useSelector((s) => s.cart);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -15,23 +19,20 @@ function Navbar() {
 
   const cartCount = cart?.items?.length || 0;
 
-
-
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-
   const handleLogout = () => {
-    dispatch(logout())
-    dispatch(clearCartState())
-    toast.success('See you soon!')
-    navigate('/')
-    setMenuOpen(false)
-    setDropOpen(false)
-  }
+    dispatch(logout());
+    dispatch(clearCartState());
+    toast.success("See you soon!");
+    navigate("/");
+    setMenuOpen(false);
+    setDropOpen(false);
+  };
 
   return (
     <header
@@ -170,6 +171,7 @@ function Navbar() {
           onClick={() => setMenuOpen(!menuOpen)}
         >
           {menuOpen ? <FiX size={22} /> : <FiMenu size={22} />}
+
         </button>
       </div>
 
