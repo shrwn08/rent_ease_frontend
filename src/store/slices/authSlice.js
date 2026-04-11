@@ -1,11 +1,11 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 
-import * as api from "../../services/api"
+import { login, register,  } from "../../services/api";
 
-export const registerUser = createAsyncThunk("registerUser", async (data, {rejectwithValue})=>{
+export const registerUser = createAsyncThunk("registerUser", async (data, {rejectWithValue})=>{
     try {
-        const res = await api.register(data);
+        const res = await register(data);
 
         const {token, user} = res.data;
 
@@ -15,16 +15,33 @@ export const registerUser = createAsyncThunk("registerUser", async (data, {rejec
         return user;
         
     } catch (error) {
-        return rejectwithValue(error.response?.data?.message || "Registeration failed");
+        console.log(error.response?.data);
+        return rejectWithValue(error.response?.data?.message || "Registeration failed");
     }
 })  ;
 
+
+export const  loginUser = createAsyncThunk("loginUser", async (data, {rejectwithValue})=>{
+    try {
+        const res = await login(data);
+
+        const {token, user} = res.data;
+
+        localStorage.setItem("token", token);
+        localStorage.setItem("user", JSON.stringify(user));
+
+        return user;
+    } catch (error) {
+        console.log(error.response?.data);
+        return rejectwithValue(error.response?.data?.message || "Login failed");
+    }
+})
 
 //load persisted user from localstorage
 
 const storedUser = (()=>{
     try {
-        return JSON.parse.apply(localStorage.getItem('user'));
+        return JSON.parse(localStorage.getItem('user'));
     } catch (error) {
         return null;
     }
