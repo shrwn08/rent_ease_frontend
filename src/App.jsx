@@ -15,8 +15,14 @@ function App() {
     <Routes>
       <Route element={<Layout /> }>
         <Route path="/" element={<Home />} />
+
+
+        //auth
          <Route path="/register" element={user ? <Navigate to="/" replace />: <Register /> } />
           <Route path="/login" element={user ? <Navigate to="/" replace />: <Login /> } />
+
+
+          
       </Route>
      
     </Routes>
