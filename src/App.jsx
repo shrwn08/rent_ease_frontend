@@ -7,6 +7,11 @@ import { useSelector } from "react-redux";
 import Layout from "./components/layout/Layout";
 import Login from "./pages/Login";
 import Products from "./pages/Products";
+import ProtectedRoute from "./components/common/ProtectedRoute";
+import Checkout from "./pages/Checkout";
+import Dashboard from "./pages/Dashboard";
+import OrderDetail from "./pages/OrderDetail";
+import Cart from "./pages/Cart";
 
 function App() {
   const { user } = useSelector((s) => s.auth);
@@ -25,6 +30,15 @@ function App() {
           path="/login"
           element={user ? <Navigate to="/" replace /> : <Login />}
         />
+      </Route>
+
+
+      {/* Protected user routes */}
+      <Route element={<ProtectedRoute />}>
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/checkout" element={<Checkout />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/orders/:id" element={<OrderDetail />} />
       </Route>
     </Routes>
   );
