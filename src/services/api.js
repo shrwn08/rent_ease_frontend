@@ -41,3 +41,6 @@ export const addToCart = (data) => API.post("/cart", data);
 export const updateCartItem = (pid, data) => API.put(`/cart/${pid}`, data);
 export const removeFromCart = (pid) => API.delete(`/cart/${pid}`);
 export const clearCart = () => API.delete("/cart/clear");
+
+//Order
+export const createOrder = (data) => API.post("/orders", data);
