@@ -7,6 +7,7 @@ export const fetchProducts = createAsyncThunk(
   async (params, { rejectWithValue }) => {
     try {
       const res = await getProducts(params);
+      console.log(res.data);
       return res.data;
     } catch (err) {
       return rejectWithValue(
@@ -41,7 +42,9 @@ const productSlice = createSlice({
     loading: false,
     error: null,
   },
-  reducers: {},
+  reducers: { clearCurrentProduct: (state) => {
+      state.currentProduct = null;
+    }},
   extraReducers: (builder) => {
     builder
       .addCase(fetchProducts.pending, (state) => {
@@ -50,10 +53,10 @@ const productSlice = createSlice({
       })
       .addCase(fetchProducts.fulfilled, (state, action) => {
         state.loading = false;
-        state.products = action.payload.products;
-        state.total = action.payload.total;
-        state.totalPages = action.payload.totalPages;
-        state.currentPage = action.payload.currentPage;
+        state.products = action.payload.products || action.payload;
+        state.total = action.payload.total || 0;
+        state.totalPages = action.payload.totalPages || 1;
+        state.currentPage = action.payload.currentPage || 1;
       })
       .addCase(fetchProducts.rejected, (state, action) => {
         state.loading = false;

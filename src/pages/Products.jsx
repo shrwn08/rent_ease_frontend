@@ -4,6 +4,7 @@ import { useSearchParams } from "react-router-dom";
 import { fetchProducts } from "../store/slices/productSlice";
 import { Spinner } from "../components/common";
 import { FiChevronDown, FiSearch } from "react-icons/fi";
+import ProductCard from "../components/common/ProductCard";
 
 const CATEGORIES = ["All", "Furniture", "Appliances"];
 const SORTS = [
