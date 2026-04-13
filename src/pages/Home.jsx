@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchProducts } from "../store/slices/productSlice";
 import { Link } from "react-router-dom";
 import { SectionHeader, Spinner } from "../components/common";
+import ProductCard from "../components/common/ProductCard";
 
 
 const features = [

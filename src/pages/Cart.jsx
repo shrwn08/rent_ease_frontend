@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { fetchCart, removeItem, updateItem } from "../store/slices/cartSlice";
 import toast from "react-hot-toast";
 import { EmptyState, Spinner } from "../components/common";
-import { FiShoppingBag } from "react-icons/fi";
+import { FiArrowRight, FiShoppingBag, FiTrash2 } from "react-icons/fi";
 
 function Cart() {
   const dispatch = useDispatch();
