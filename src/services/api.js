@@ -50,3 +50,17 @@ export const getAllOrders = (params) =>
   API.get("/orders/admin/all", { params });
 export const updateOrderStatus = (id, status) =>
   API.put(`/orders/${id}/status`, { status });
+
+
+//maintenance
+export const createRequest  = (data)        => API.post('/maintenance', data);
+export const getMyRequests  = ()            => API.get('/maintenance');
+export const getAllRequests  = (params)      => API.get('/maintenance/admin/all', { params });
+export const updateRequest  = (id, data)    => API.put(`/maintenance/${id}`, data);
+
+
+
+//Admin
+
+export const getAllUsers    = ()   => API.get('/users');
+export const toggleUser    = (id) => API.put(`/users/${id}/toggle`);

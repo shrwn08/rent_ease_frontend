@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { logout } from "../../store/slices/authSlice";
 import { clearCartState } from "../../store/slices/cartSlice";
-import { FiChevronDown, FiMenu, FiShoppingBag, FiUser, FiX } from "react-icons/fi";
+import { FiChevronDown, FiLogOut, FiMenu, FiShoppingBag, FiUser, FiX } from "react-icons/fi";
 
 function Navbar() {
   const { user } = useSelector((s) => s.auth);

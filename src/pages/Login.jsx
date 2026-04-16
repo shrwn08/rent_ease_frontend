@@ -25,7 +25,7 @@ function Login() {
       const user = await dispatch(loginUser(form)).unwrap();
 
       toast.success(`Welcome back ${user.name}`);
-      navigate(user.role === "admin" ? "/admin" : "/");
+      navigate(user.role === "admin" ? "/dashboard" : "/");
     } catch (error) {
       console.log(error);
       toast.error(error || "Login failed");

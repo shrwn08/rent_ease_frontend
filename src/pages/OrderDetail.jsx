@@ -23,7 +23,7 @@ function OrderDetail() {
 
   return (
     <div className="page-container py-12 max-w-3xl">
-      {isAdminRoute && (
+      {isAdminRoute ? (
         <button
           onClick={() => navigate("/dashboard")}
           className="flex items-center gap-2 text-ink-500 hover:text-ink-900 mb-8 text-sm font-medium transition group"
@@ -33,7 +33,15 @@ function OrderDetail() {
           </div>
           Back to Dashboard
         </button>
-      )}
+      ) :(<button
+          onClick={() => navigate("/")}
+          className="flex items-center gap-2 text-ink-500 hover:text-ink-900 mb-8 text-sm font-medium transition group"
+        >
+          <div className="w-8 h-8 border border-ink-200 rounded-full flex items-center justify-center group-hover:border-ink-500 transition">
+            <FiArrowLeft size={14} />
+          </div>
+          Back to Home
+        </button>)}
 
       <div className="flex items-start justify-between gap-4 mb-8">
         <div>
