@@ -5,6 +5,7 @@ import { fetchCart } from "../store/slices/cartSlice";
 import toast from "react-hot-toast";
 import { Spinner } from "../components/common";
 import { createOrder } from "../services/api";
+import { FiCalendar, FiCheck, FiMapPin } from "react-icons/fi";
 
 const minDate = new Date(Date.now() + 2 * 24 * 60 * 60 * 1000)
   .toISOString()
@@ -30,35 +31,59 @@ function Checkout() {
   }, [dispatch]);
 
   const items = cart?.items || [];
+
+  useEffect(() => {
+    if (!cartLoading && cart !== null && items.length === 0) {
+      navigate("/cart");
+    }
+  }, [cartLoading, cart, navigate, items.length]);
+
   const totalRent = items.reduce(
-    (s, i) => s + (i.product?.monthlyRent || 0),
+    (s, i) =>
+      s + (Number(i.product?.monthlyRent) || 0) * (Number(i.quantity) || 1),
     0,
   );
-  const totalDeposit = items.reduce((s, i) => s + (i.product?.deposit || 0), 0);
+  const totalDeposit = items.reduce(
+    (s, i) => s + (Number(i.product?.deposit) || 0) * (Number(i.quantity) || 1),
+    0,
+  );
+
+    const grandTotal = totalRent + totalDeposit;
+
   const handleChange = (e) =>
     setForm({ ...form, [e.target.name]: e.target.value });
 
-
   const handleSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     if (!form.street || !form.city || !form.state || !form.pincode)
-      return toast.error('Please fill in all address fields')
-    setSubmitting(true)
+      return toast.error("Please fill in all address fields");
+
+    if(form.pincode.length !== 6)
+      return toast.error("Pincode must be exactly 6 digits");
+
+    setSubmitting(true);
     try {
       const res = await createOrder({
-        deliveryDate:    form.deliveryDate,
-        deliveryAddress: { street: form.street, city: form.city, state: form.state, pincode: form.pincode },
-        notes:           form.notes,
-      })
-      toast.success('Order placed successfully! 🎉')
-      navigate(`/orders/${res.data.order._id}`)
+        deliveryDate: form.deliveryDate,
+        deliveryAddress: {
+          street: form.street,
+          city: form.city,
+          state: form.state,
+          pincode: form.pincode,
+        },
+        notes: form.notes,
+      });
+      toast.success("Order placed successfully! 🎉");
+      navigate(`/orders/${res.data.order._id}`);
     } catch (err) {
-      toast.error(err.response?.data?.message || 'Failed to place order')
-    } finally { setSubmitting(false) }
-  }
+      toast.error(err.response?.data?.message || "Failed to place order");
+    } finally {
+      setSubmitting(false);
+    }
+  };
 
-    if (cartLoading && !cart) return <Spinner />
-  if (items.length === 0) { navigate('/cart'); return null }
+  if (cartLoading && !cart) return <Spinner />;
+  
 
   const InputGroup = ({
     label,
@@ -100,7 +125,7 @@ function Checkout() {
         onSubmit={handleSubmit}
         className="grid grid-cols-1 lg:grid-cols-3 gap-8"
       >
-        {/* ── Left: Address & Date ── */}
+        {/* ----- Left: Address & Date ---- */}
         <div className="lg:col-span-2 space-y-5">
           {/* Address card */}
           <div className="card p-7">
@@ -128,7 +153,7 @@ function Checkout() {
             </div>
           </div>
 
-          {/* Date card */}
+          {/* Delivery Date card */}
           <div className="card p-7">
             <h2 className="font-display font-bold text-xl text-ink-900 mb-6 flex items-center gap-3">
               <div className="w-9 h-9 bg-brand-100 border border-brand-200 rounded-2xl flex items-center justify-center">
@@ -169,7 +194,7 @@ function Checkout() {
           </div>
         </div>
 
-        {/* ── Right: Summary ── */}
+        {/* ----- Right: Summary ----- */}
         <div>
           <div className="card p-6 sticky top-20">
             <h2 className="font-display font-bold text-xl text-ink-900 mb-5">
@@ -225,7 +250,7 @@ function Checkout() {
               <div className="border-t border-ink-100 pt-2.5 flex justify-between items-center">
                 <span className="font-bold text-ink-800">Total</span>
                 <span className="font-display font-bold text-2xl text-ink-900">
-                  ₹{(totalRent + totalDeposit).toLocaleString()}
+                  ₹{grandTotal.toLocaleString()}
                 </span>
               </div>
             </div>

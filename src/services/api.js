@@ -44,3 +44,9 @@ export const clearCart = () => API.delete("/cart/clear");
 
 //Order
 export const createOrder = (data) => API.post("/orders", data);
+export const getMyOrders = (params) => API.get("/orders", { params });
+export const getOrder = (id) => API.get(`/orders/${id}`);
+export const getAllOrders = (params) =>
+  API.get("/orders/admin/all", { params });
+export const updateOrderStatus = (id, status) =>
+  API.put(`/orders/${id}/status`, { status });

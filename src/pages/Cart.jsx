@@ -32,6 +32,9 @@ function Cart() {
   if (loading && !cart) return <Spinner />
 
   const items = cart?.items || []
+
+  console.log(console.log(items)) //check
+
   const totalRent    = items.reduce((s, i) => s + (i.product?.monthlyRent || 0) * i.quantity, 0)
   const totalDeposit = items.reduce((s, i) => s + (i.product?.deposit || 0) * i.quantity, 0)
 
@@ -164,7 +167,7 @@ function Cart() {
                 <div className="border-t border-ink-100 pt-3 flex justify-between items-center">
                   <span className="font-bold text-ink-800">Total Due</span>
                   <span className="font-display font-bold text-2xl text-ink-900">
-                    ₹{(totalRent + totalDeposit).toLocaleString()}
+                    ₹{(totalRent + totalDeposit)}
                   </span>
                 </div>
               </div>
