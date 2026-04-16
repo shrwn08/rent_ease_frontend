@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { FiEye, FiPlus } from "react-icons/fi";
+import { FiEye, FiPlus, FiTool } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import {
   createRequest,
@@ -9,7 +9,7 @@ import {
 } from "../services/api";
 import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
-import { EmptyState, Spinner } from "../components/common";
+import { EmptyState, Spinner, StatusBadge } from "../components/common";
 
 
 const TABS = ['Active Rentals', 'History', 'Maintenance']
