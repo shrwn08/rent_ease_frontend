@@ -40,6 +40,15 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/orders/:id" element={<OrderDetail />} />
       </Route>
+
+      {/* Admin routes */}
+        <Route element={<AdminRoute />}>
+          <Route path="/admin"              element={<AdminDashboard />} />
+          <Route path="/admin/products"     element={<AdminProducts />} />
+          <Route path="/admin/orders"       element={<AdminOrders />} />
+          <Route path="/admin/maintenance"  element={<AdminMaintenance />} />
+          <Route path="/admin/users"        element={<AdminUsers />} />
+        </Route>
     </Routes>
   );
 }
