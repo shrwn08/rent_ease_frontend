@@ -1,35 +1,39 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { getOrder } from "../services/api";
-import { Spinner } from "../components/common";
+import { Spinner, StatusBadge } from "../components/common";
+import { FiArrowLeft, FiCalendar, FiMapPin, FiPackage } from "react-icons/fi";
 
 function OrderDetail() {
-
   const { id } = useParams();
-  const navigate  = useNavigate();
-  const [order, setOrder]     = useState(null);
-  const [loading, setLoading] = useState(true)
+  const location = useLocation();
+  const navigate = useNavigate();
+  const isAdminRoute = location.pathname.includes("admin");
+  const [order, setOrder] = useState(null);
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     getOrder(id)
       .then((res) => setOrder(res.data.order))
-      .catch(() => navigate('/dashboard'))
-      .finally(() => setLoading(false))
+      .catch(() => navigate("/dashboard"))
+      .finally(() => setLoading(false));
   }, [id, navigate]);
 
-  if (loading) return <Spinner />
-  if (!order)  return null
+  if (loading) return <Spinner />;
+  if (!order) return null;
 
   return (
     <div className="page-container py-12 max-w-3xl">
-      <button
-        onClick={() => navigate("/dashboard")}
-        className="flex items-center gap-2 text-ink-500 hover:text-ink-900 mb-8 text-sm font-medium transition group"
-      >
-        <div className="w-8 h-8 border border-ink-200 rounded-full flex items-center justify-center group-hover:border-ink-500 transition">
-          <FiArrowLeft size={14} />
-        </div>
-        Back to Dashboard
-      </button>
+      {isAdminRoute && (
+        <button
+          onClick={() => navigate("/dashboard")}
+          className="flex items-center gap-2 text-ink-500 hover:text-ink-900 mb-8 text-sm font-medium transition group"
+        >
+          <div className="w-8 h-8 border border-ink-200 rounded-full flex items-center justify-center group-hover:border-ink-500 transition">
+            <FiArrowLeft size={14} />
+          </div>
+          Back to Dashboard
+        </button>
+      )}
 
       <div className="flex items-start justify-between gap-4 mb-8">
         <div>
