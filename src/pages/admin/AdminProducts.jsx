@@ -1,15 +1,12 @@
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  fetchProducts,
-  createProduct,
-  editProduct,
-  removeProduct,
-} from "../../store/slices/productSlice";
-import AdminSidebar from "../../components/layout/AdminSidebar";
-import { Spinner } from "../../components/common";
-import { FiPlus, FiEdit2, FiTrash2, FiX, FiCheck } from "react-icons/fi";
+
+
 import toast from "react-hot-toast";
+import { useDispatch, useSelector } from "react-redux";
+import AdminSidebar from "../../components/layout/AdminSidebar";
+import { FiEdit2, FiPlus, FiTrash2 } from "react-icons/fi";
+import { fetchProducts } from "../../store/slices/productSlice";
+import { Spinner } from "../../components/common";
  
 const EMPTY_FORM = {
   name: "",

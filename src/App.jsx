@@ -14,6 +14,10 @@ import OrderDetail from "./pages/OrderDetail";
 import Cart from "./pages/Cart";
 import AdminRoute from "./components/common/AdminRoute";
 import AdminDashboard from "./pages/admin/AdminDashboard";
+import AdminProducts from "./pages/admin/AdminProducts";
+import AdminOrders from "./pages/admin/AdminOrders";
+import AdminMaintenance from "./pages/admin/AdminMaintenance";
+import AdminUsers from "./pages/admin/Adminusers";
 
 function App() {
   const { user } = useSelector((s) => s.auth);

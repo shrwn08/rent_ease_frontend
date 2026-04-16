@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import * as api from "../../services/api";
-import AdminSidebar from "../../components/layout/AdminSidebar";
-import { Spinner } from "../../components/common";
-import { FiToggleLeft, FiToggleRight, FiSearch } from "react-icons/fi";
 import toast from "react-hot-toast";
+import { FiSearch } from "react-icons/fi";
+import AdminSidebar from "../../components/layout/AdminSidebar";
+import { getAllUsers, toggleUser } from "../../services/api";
+import { Spinner } from "../../components/common";
+
  
 function AdminUsers() {
   const [users,   setUsers]   = useState([]);
@@ -11,7 +12,7 @@ function AdminUsers() {
   const [search,  setSearch]  = useState("");
  
   useEffect(() => {
-    api.getAllUsers()
+    getAllUsers()
       .then((res) => setUsers(res.data.users || []))
       .catch(() => toast.error("Failed to load users"))
       .finally(() => setLoading(false));
@@ -19,7 +20,7 @@ function AdminUsers() {
  
   const handleToggle = async (userId, name, isCurrentlyActive) => {
     try {
-      const res = await api.toggleUser(userId);
+      const res = await toggleUser(userId);
       setUsers((prev) =>
         prev.map((u) =>
           u._id === userId ? { ...u, isActive: res.data.user.isActive } : u
@@ -111,10 +112,7 @@ function AdminUsers() {
                             </div>
                           </td>
  
-                          {/* Phone */}
-                          <td className="px-5 py-4 text-ink-600">
-                            {user.phone || "—"}
-                          </td>
+                         
  
                           {/* Role badge */}
                           <td className="px-5 py-4">
