@@ -12,6 +12,8 @@ import Checkout from "./pages/Checkout";
 import Dashboard from "./pages/Dashboard";
 import OrderDetail from "./pages/OrderDetail";
 import Cart from "./pages/Cart";
+import AdminRoute from "./components/common/AdminRoute";
+import AdminDashboard from "./pages/admin/AdminDashboard";
 
 function App() {
   const { user } = useSelector((s) => s.auth);
