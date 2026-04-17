@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { FiSearch } from "react-icons/fi";
+import { FiSearch, FiToggleRight } from "react-icons/fi";
 import AdminSidebar from "../../components/layout/AdminSidebar";
 import { getAllUsers, toggleUser } from "../../services/api";
 import { Spinner } from "../../components/common";
@@ -78,7 +78,7 @@ function AdminUsers() {
                 <table className="w-full text-sm">
                   <thead className="bg-ink-50 border-b border-ink-100">
                     <tr>
-                      {["User", "Phone", "Role", "Joined", "Status", "Action"].map((h) => (
+                      {["User", "Role", "Joined", "Status", "Action"].map((h) => (
                         <th key={h}
                           className="text-left px-5 py-4 text-xs font-bold uppercase tracking-wider text-ink-500">
                           {h}
